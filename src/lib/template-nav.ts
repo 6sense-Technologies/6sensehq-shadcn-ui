@@ -28,6 +28,11 @@ export const templateNav: TemplateNavItem[] = [
     href: "/template/app-shells",
     slug: "app-shells",
   },
+  {
+    title: "List Pages",
+    href: "/template/list-pages",
+    slug: "list-pages",
+  },
 ]
 
 /** Login page variations — each opens as a full page */
@@ -194,6 +199,17 @@ export const appShellVariations: TemplateVariation[] = [
     title: "Payments",
     description: "Stripe-style shell with workspace switcher and collapsible products",
     href: "/view/app-shell/payments",
+    slug: "payments",
+  },
+]
+
+/** List page variations — each opens as a full page */
+export const listPageVariations: TemplateVariation[] = [
+  {
+    title: "Payments",
+    description:
+      "Stripe-style payments table with tabs, filters, and pagination",
+    href: "/view/list/payments",
     slug: "payments",
   },
 ]
