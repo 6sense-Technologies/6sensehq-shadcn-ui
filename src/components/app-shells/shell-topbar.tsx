@@ -36,7 +36,7 @@ export function ShellTopbar({
         className="mr-1 hidden data-vertical:h-4 data-vertical:self-center sm:block"
       />
       {children ? (
-        <div className="min-w-0 flex-1">{children}</div>
+        <div className="min-w-0 flex-1 overflow-hidden">{children}</div>
       ) : !hideSearch ? (
         <ShellSearch
           placeholder={searchPlaceholder}

@@ -226,4 +226,11 @@ export const listPageVariations: TemplateVariation[] = [
     href: "/view/list/members",
     slug: "members",
   },
+  {
+    title: "Users Directory",
+    description:
+      "Clean users table with summary cards, date range, and circular actions",
+    href: "/view/list/users-02",
+    slug: "users-02",
+  },
 ]
