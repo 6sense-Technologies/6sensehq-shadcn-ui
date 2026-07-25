@@ -219,4 +219,11 @@ export const listPageVariations: TemplateVariation[] = [
     href: "/view/list/users",
     slug: "users",
   },
+  {
+    title: "Members",
+    description:
+      "Slack-style member management with filter popover and zebra table",
+    href: "/view/list/members",
+    slug: "members",
+  },
 ]

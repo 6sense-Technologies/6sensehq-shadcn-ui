@@ -22,6 +22,7 @@ import {
   type Status,
   type Wallet,
 } from "@/components/list-pages/payments-filters"
+import { RichAlert } from "@/components/rich-alert"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -415,27 +416,34 @@ export function PaymentsList() {
   return (
     <div className="flex min-w-0 flex-col gap-2.5">
       {showBanner ? (
-        <div className="flex items-center gap-2.5 rounded-lg border bg-muted/40 px-3 py-2 text-sm">
-          <StarIcon className="size-3.5 shrink-0 text-muted-foreground" />
-          <span className="min-w-0 flex-1 truncate">
-            You&apos;re prequalified for{" "}
-            <span className="font-medium">$62,900</span> in financing
-          </span>
-          <button
-            type="button"
-            className="shrink-0 font-medium text-[#635BFF] hover:underline"
-          >
-            View offer
-          </button>
-          <button
-            type="button"
-            aria-label="Dismiss"
-            onClick={() => setShowBanner(false)}
-            className="text-muted-foreground hover:text-foreground shrink-0"
-          >
-            <XIcon className="size-3.5" />
-          </button>
-        </div>
+        <RichAlert
+          layout="link"
+          icon={StarIcon}
+          title="You're prequalified for $62,900 in financing"
+          className="rounded-lg bg-muted/40"
+          action={
+            <div className="flex items-center gap-0.5 sm:gap-1">
+              <Button
+                type="button"
+                variant="link"
+                size="sm"
+                className="h-auto px-1 text-xs text-[#635BFF] sm:px-1.5 sm:text-sm"
+              >
+                View offer
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-xs"
+                aria-label="Dismiss"
+                onClick={() => setShowBanner(false)}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <XIcon />
+              </Button>
+            </div>
+          }
+        />
       ) : null}
 
       <div className="flex gap-1.5 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:flex-wrap">
@@ -445,8 +453,7 @@ export function PaymentsList() {
             type="button"
             onClick={() => setActiveTab(tab)}
             className={cn(
-              "shrink-0 truncate rounded-md border px-2.5 py-1.5 text-sm font-medium transition-colors sm:px-3 md:max-w-none md:flex-1",
-              tab === "All" ? "max-w-none" : "max-w-[5.75rem] md:max-w-none",
+              "shrink-0 rounded-md border px-2.5 py-1.5 text-sm font-medium whitespace-nowrap transition-colors sm:px-3 md:flex-1",
               activeTab === tab
                 ? "border-[#635BFF] bg-background text-[#635BFF]"
                 : "border-border text-muted-foreground hover:bg-muted"

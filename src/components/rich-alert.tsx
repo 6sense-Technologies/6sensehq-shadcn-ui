@@ -143,15 +143,19 @@ function RichAlert({
       <div
         role="alert"
         className={cn(
-          "flex w-full items-center justify-between gap-3 rounded-xl border bg-card px-4 py-3 text-card-foreground",
+          "flex w-full items-start gap-2 rounded-xl border bg-card px-2.5 py-1.5 text-card-foreground sm:items-center sm:gap-3 sm:px-4 sm:py-3",
           className
         )}
       >
-        <div className="flex min-w-0 items-center gap-2">
-          <Icon className="size-4 shrink-0" />
-          <span className="text-sm font-medium">{title}</span>
+        <div className="flex min-w-0 flex-1 items-start gap-1.5 sm:items-center sm:gap-2">
+          <Icon className="mt-0.5 size-3.5 shrink-0 sm:mt-0 sm:size-4" />
+          <span className="text-xs leading-snug font-medium sm:text-sm sm:leading-normal">
+            {title}
+          </span>
         </div>
-        {action}
+        {action ? (
+          <div className="shrink-0 self-center">{action}</div>
+        ) : null}
       </div>
     )
   }
