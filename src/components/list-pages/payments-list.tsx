@@ -535,7 +535,8 @@ export function PaymentsList() {
                 className={cn(stickyCheckboxClass, "h-9 w-12")}
               >
                 <Checkbox
-                  checked={allSelected ? true : someSelected ? "indeterminate" : false}
+                  checked={allSelected}
+                  indeterminate={someSelected && !allSelected}
                   onCheckedChange={(checked) =>
                     setSelected(
                       checked

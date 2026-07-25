@@ -212,4 +212,11 @@ export const listPageVariations: TemplateVariation[] = [
     href: "/view/list/payments",
     slug: "payments",
   },
+  {
+    title: "Users",
+    description:
+      "Admin users table with stat cards, search, and numbered pagination",
+    href: "/view/list/users",
+    slug: "users",
+  },
 ]

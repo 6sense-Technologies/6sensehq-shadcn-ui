@@ -1,6 +1,6 @@
 "use client"
 
-import type { ComponentType } from "react"
+import type { ComponentType, ReactNode } from "react"
 
 import { HeaderActions, ShellSearch } from "@/components/app-shells/shared"
 import { Button } from "@/components/ui/button"
@@ -13,11 +13,15 @@ export function ShellTopbar({
   showShare = false,
   showProfileText = false,
   searchPlaceholder,
+  hideSearch = false,
+  children,
 }: {
   className?: string
   showShare?: boolean
   showProfileText?: boolean
   searchPlaceholder?: string
+  hideSearch?: boolean
+  children?: ReactNode
 }) {
   return (
     <header
@@ -31,10 +35,14 @@ export function ShellTopbar({
         orientation="vertical"
         className="mr-1 hidden data-vertical:h-4 data-vertical:self-center sm:block"
       />
-      <ShellSearch
-        placeholder={searchPlaceholder}
-        className="hidden max-w-xs flex-1 sm:block md:max-w-sm"
-      />
+      {children ? (
+        <div className="min-w-0 flex-1">{children}</div>
+      ) : !hideSearch ? (
+        <ShellSearch
+          placeholder={searchPlaceholder}
+          className="hidden max-w-xs flex-1 sm:block md:max-w-sm"
+        />
+      ) : null}
       <div className="ml-auto">
         <HeaderActions showShare={showShare} showProfileText={showProfileText} />
       </div>
