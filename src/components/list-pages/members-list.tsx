@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import {
+  ListChecksIcon,
   ListFilterIcon,
   MoreVerticalIcon,
   SearchIcon,
@@ -290,14 +291,18 @@ function MembersFilterPopover({
           <Button
             type="button"
             variant="outline"
-            className={cn("gap-1.5", hasFilters && "border-foreground/30")}
+            aria-label="Filter"
+            className={cn(
+              "relative size-8 gap-1.5 px-0 sm:h-8 sm:w-auto sm:px-2.5",
+              hasFilters && "border-foreground/30"
+            )}
           />
         }
       >
         <ListFilterIcon className="size-4" />
-        Filter
+        <span className="hidden sm:inline">Filter</span>
         {hasFilters ? (
-          <span className="bg-foreground text-background ml-0.5 flex size-5 items-center justify-center rounded-full text-[10px] font-semibold">
+          <span className="bg-foreground text-background absolute -top-1.5 -right-1.5 flex size-4 items-center justify-center rounded-full text-[10px] font-semibold sm:static sm:ml-0.5 sm:size-5">
             {activeCount}
           </span>
         ) : null}
@@ -586,6 +591,8 @@ export function MembersList() {
   const [filters, setFilters] = React.useState<MemberFilters>(defaultFilters)
   const [page, setPage] = React.useState(1)
   const [loading, setLoading] = React.useState(true)
+  const [selectMode, setSelectMode] = React.useState(false)
+  const [selected, setSelected] = React.useState<Set<string>>(new Set())
   const [scrolledLeft, setScrolledLeft] = React.useState(false)
   const [scrolledRight, setScrolledRight] = React.useState(false)
   const tableScrollRef = React.useRef<HTMLDivElement>(null)
@@ -638,6 +645,37 @@ export function MembersList() {
   const pageRows = filtered.slice(start, start + PAGE_SIZE)
   const pageItems = getPageItems(currentPage, pageCount)
 
+  const toggleSelectMode = () => {
+    setSelectMode((on) => {
+      if (on) setSelected(new Set())
+      return !on
+    })
+  }
+
+  const toggleRow = (id: string, checked: boolean) => {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (checked) next.add(id)
+      else next.delete(id)
+      return next
+    })
+  }
+
+  const allPageSelected =
+    pageRows.length > 0 && pageRows.every((m) => selected.has(m.id))
+  const somePageSelected = pageRows.some((m) => selected.has(m.id))
+
+  const toggleAllOnPage = (checked: boolean) => {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      for (const m of pageRows) {
+        if (checked) next.add(m.id)
+        else next.delete(m.id)
+      }
+      return next
+    })
+  }
+
   const updateScrollShadow = React.useCallback(() => {
     const el = tableScrollRef.current
     if (!el) return
@@ -677,40 +715,61 @@ export function MembersList() {
       </div>
 
       <div className="grid grid-cols-2 gap-2.5 sm:gap-4 xl:grid-cols-4">
-        {memberStats.map((stat) => (
-          <div
-            key={stat.title}
-            className="flex items-start justify-between gap-2 rounded-xl border bg-background p-3 sm:gap-3 sm:p-4"
-          >
-            <div className="flex min-w-0 flex-col gap-0.5 sm:gap-1">
-              <span className="text-muted-foreground truncate text-xs sm:text-sm">
-                {stat.title}
-              </span>
-              <span className="text-xl font-semibold sm:text-2xl">
-                {stat.value}
-              </span>
-              <span className="text-muted-foreground hidden text-xs sm:block">
-                {stat.note}
-              </span>
-            </div>
-            <span
-              className={cn(
-                "flex size-8 shrink-0 items-center justify-center rounded-lg sm:size-10",
-                stat.tone
-              )}
-            >
-              <stat.icon className="size-4 sm:size-5" />
-            </span>
-          </div>
-        ))}
+        {loading
+          ? Array.from({ length: 4 }, (_, i) => (
+              <div
+                key={i}
+                className="flex items-start justify-between gap-2 rounded-xl border bg-background p-3 sm:gap-3 sm:p-4"
+              >
+                <div className="flex min-w-0 flex-1 flex-col gap-1.5 sm:gap-2">
+                  <Skeleton className="h-3.5 w-20 sm:h-4 sm:w-24" />
+                  <Skeleton className="h-6 w-12 sm:h-7 sm:w-14" />
+                  <Skeleton className="hidden h-3 w-28 sm:block" />
+                </div>
+                <Skeleton className="size-8 shrink-0 rounded-lg sm:size-10" />
+              </div>
+            ))
+          : memberStats.map((stat) => (
+              <div
+                key={stat.title}
+                className="flex items-start justify-between gap-2 rounded-xl border bg-background p-3 sm:gap-3 sm:p-4"
+              >
+                <div className="flex min-w-0 flex-col gap-0.5 sm:gap-1">
+                  <span className="text-muted-foreground truncate text-xs sm:text-sm">
+                    {stat.title}
+                  </span>
+                  <span className="text-xl font-semibold sm:text-2xl">
+                    {stat.value}
+                  </span>
+                  <span className="text-muted-foreground hidden text-xs sm:block">
+                    {stat.note}
+                  </span>
+                </div>
+                <span
+                  className={cn(
+                    "flex size-8 shrink-0 items-center justify-center rounded-lg sm:size-10",
+                    stat.tone
+                  )}
+                >
+                  <stat.icon className="size-4 sm:size-5" />
+                </span>
+              </div>
+            ))}
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="text-muted-foreground flex min-h-8 flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-          {!loading ? (
+          {loading ? (
+            <Skeleton className="h-4 w-24" />
+          ) : (
             <span>
               {filtered.length.toLocaleString()} member
               {filtered.length === 1 ? "" : "s"}
+            </span>
+          )}
+          {!loading && selectMode && selected.size > 0 ? (
+            <span className="text-foreground font-medium">
+              {selected.size} selected
             </span>
           ) : null}
           {!loading && filtered.length > 0 ? (
@@ -725,6 +784,21 @@ export function MembersList() {
           ) : null}
         </div>
         <div className="flex w-full items-center gap-2 sm:w-auto">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={toggleSelectMode}
+            aria-pressed={selectMode}
+            aria-label="Select"
+            className={cn(
+              "size-8 gap-1.5 px-0 sm:h-8 sm:w-auto sm:px-2.5",
+              selectMode &&
+                "bg-foreground text-background hover:bg-foreground/90 hover:text-background"
+            )}
+          >
+            <ListChecksIcon className="size-4" />
+            <span className="hidden sm:inline">Select</span>
+          </Button>
           <MembersFilterPopover filters={filters} onChange={setFilters} />
           <div className="relative min-w-0 flex-1 sm:w-72 sm:flex-none">
             <SearchIcon className="text-muted-foreground absolute top-1/2 left-2.5 size-4 -translate-y-1/2" />
@@ -773,10 +847,24 @@ export function MembersList() {
               <TableHead
                 className={cn(
                   stickyNameClass,
-                  "text-muted-foreground min-w-[200px] font-semibold sm:min-w-[240px]"
+                  "text-muted-foreground w-[220px] min-w-[220px] max-w-[220px] font-semibold sm:w-[260px] sm:min-w-[260px] sm:max-w-[260px] sm:pr-10"
                 )}
               >
-                Full name
+                <span className="flex items-center gap-2.5">
+                  <span className="flex size-8 shrink-0 items-center justify-center overflow-hidden">
+                    {selectMode ? (
+                      <Checkbox
+                        aria-label="Select all on this page"
+                        checked={allPageSelected}
+                        indeterminate={somePageSelected && !allPageSelected}
+                        onCheckedChange={(checked) =>
+                          toggleAllOnPage(checked === true)
+                        }
+                      />
+                    ) : null}
+                  </span>
+                  Full name
+                </span>
               </TableHead>
               <TableHead className="text-muted-foreground min-w-[130px] font-semibold">
                 Member ID
@@ -822,10 +910,29 @@ export function MembersList() {
                   className={cn("group", zebra && "bg-muted/40 hover:bg-muted/60")}
                 >
                   <TableCell
-                    className={cn(stickyNameClass, "py-2.5", stickyBg)}
+                    className={cn(
+                      stickyNameClass,
+                      "relative w-[220px] max-w-[220px] overflow-hidden py-2.5 sm:w-[260px] sm:max-w-[260px] sm:pr-10",
+                      stickyBg
+                    )}
                   >
                     <span className="flex items-center gap-2.5">
-                      <MemberAvatar name={member.fullName} index={rowIndex} />
+                      <span className="flex size-8 shrink-0 items-center justify-center overflow-hidden">
+                        {selectMode ? (
+                          <Checkbox
+                            aria-label={`Select ${member.fullName}`}
+                            checked={selected.has(member.id)}
+                            onCheckedChange={(checked) =>
+                              toggleRow(member.id, checked === true)
+                            }
+                          />
+                        ) : (
+                          <MemberAvatar
+                            name={member.fullName}
+                            index={rowIndex}
+                          />
+                        )}
+                      </span>
                       <span
                         className={cn(
                           "min-w-0 flex-1 truncate font-medium",
@@ -835,9 +942,9 @@ export function MembersList() {
                       >
                         {member.fullName}
                       </span>
-                      <span className="hidden sm:inline-flex">
-                        <MemberRowActions member={member} />
-                      </span>
+                    </span>
+                    <span className="absolute top-1/2 right-1.5 hidden -translate-y-1/2 sm:inline-flex">
+                      <MemberRowActions member={member} />
                     </span>
                   </TableCell>
                   <TableCell className="text-muted-foreground font-mono text-xs">
