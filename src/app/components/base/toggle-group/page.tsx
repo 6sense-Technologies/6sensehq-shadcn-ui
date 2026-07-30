@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { ToggleGroupDemoExample } from "@/components/examples/base/toggle-group-demo"
 import { ToggleGroupOutlineExample } from "@/components/examples/base/toggle-group-outline"
 import { ToggleGroupSizesExample } from "@/components/examples/base/toggle-group-sizes"
@@ -15,11 +18,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("toggle-group")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Toggle Group</h1>
         <p className="text-muted-foreground text-lg">A set of two-state buttons that can be toggled on or off.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

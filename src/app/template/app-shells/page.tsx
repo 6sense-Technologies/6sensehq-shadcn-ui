@@ -2,6 +2,7 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { ArrowUpRightIcon } from "lucide-react"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
 import { appShellVariations } from "@/lib/template-nav"
 
 export const metadata: Metadata = {
@@ -29,11 +30,12 @@ export default function TemplateAppShellsIndexPage() {
             rel="noreferrer"
             className="group flex items-start justify-between gap-3 rounded-xl border px-4 py-4 transition-colors hover:bg-muted"
           >
-            <div className="min-w-0">
+            <div className="min-w-0 space-y-1.5">
               <span className="font-medium">{item.title}</span>
-              <p className="text-muted-foreground mt-1 text-sm">
+              <p className="text-muted-foreground text-sm">
                 {item.description}
               </p>
+              <DocsWhenToUse>{item.whenToUse}</DocsWhenToUse>
             </div>
             <ArrowUpRightIcon className="text-muted-foreground size-4 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
           </Link>

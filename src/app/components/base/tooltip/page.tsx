@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { TooltipDemoExample } from "@/components/examples/base/tooltip-demo"
 import { TooltipSidesExample } from "@/components/examples/base/tooltip-sides"
 import { TooltipKeyboardExample } from "@/components/examples/base/tooltip-keyboard"
@@ -12,11 +15,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("tooltip")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Tooltip</h1>
         <p className="text-muted-foreground text-lg">A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

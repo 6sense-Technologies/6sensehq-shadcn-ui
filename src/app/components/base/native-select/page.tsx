@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { NativeSelectDemoExample } from "@/components/examples/base/native-select-demo"
 import { NativeSelectGroupsExample } from "@/components/examples/base/native-select-groups"
 import { NativeSelectDisabledExample } from "@/components/examples/base/native-select-disabled"
@@ -12,11 +15,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("native-select")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Native Select</h1>
         <p className="text-muted-foreground text-lg">A styled native HTML select element with consistent design system integration.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

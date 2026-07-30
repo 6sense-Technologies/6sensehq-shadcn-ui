@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { DatePickerDemoExample } from "@/components/examples/base/date-picker-demo"
 import { DatePickerBasicExample } from "@/components/examples/base/date-picker-basic"
 import { DatePickerRangeExample } from "@/components/examples/base/date-picker-range"
@@ -15,11 +18,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("date-picker")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Date Picker</h1>
         <p className="text-muted-foreground text-lg">A date picker component with range and presets.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

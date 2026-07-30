@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { ToastDemoExample } from "@/components/examples/base/toast-demo"
 import { ToastTypesExample } from "@/components/examples/base/toast-types"
 import { ToastPromiseExample } from "@/components/examples/base/toast-promise"
@@ -10,11 +13,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("toast")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Toast</h1>
         <p className="text-muted-foreground text-lg">A succinct message that is displayed temporarily.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

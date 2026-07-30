@@ -1,5 +1,6 @@
 import Link from "next/link"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
 import { componentNav } from "@/lib/component-nav"
 
 export default function ComponentsIndexPage() {
@@ -16,9 +17,10 @@ export default function ComponentsIndexPage() {
           <Link
             key={item.slug}
             href={item.href}
-            className="rounded-lg border px-4 py-3 text-sm font-medium transition-colors hover:bg-muted"
+            className="flex flex-col gap-1.5 rounded-lg border px-4 py-3 transition-colors hover:bg-muted"
           >
-            {item.title}
+            <span className="text-sm font-medium">{item.title}</span>
+            <DocsWhenToUse>{item.whenToUse}</DocsWhenToUse>
           </Link>
         ))}
       </div>

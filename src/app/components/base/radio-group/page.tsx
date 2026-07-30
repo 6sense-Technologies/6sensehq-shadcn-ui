@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { RadioGroupDemoExample } from "@/components/examples/base/radio-group-demo"
 import { RadioGroupDescriptionExample } from "@/components/examples/base/radio-group-description"
 import { RadioGroupChoiceCardExample } from "@/components/examples/base/radio-group-choice-card"
@@ -14,11 +17,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("radio-group")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Radio Group</h1>
         <p className="text-muted-foreground text-lg">A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { CollapsibleDemoExample } from "@/components/examples/base/collapsible-demo"
 import { CollapsibleBasicExample } from "@/components/examples/base/collapsible-basic"
 import { CollapsibleSettingsExample } from "@/components/examples/base/collapsible-settings"
@@ -12,11 +15,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("collapsible")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Collapsible</h1>
         <p className="text-muted-foreground text-lg">An interactive component which expands/collapses a panel.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { DrawerDemoExample } from "@/components/examples/base/drawer-demo"
 import { DrawerSidesExample } from "@/components/examples/base/drawer-sides"
 import { DrawerSwipeHandleExample } from "@/components/examples/base/drawer-swipe-handle"
@@ -14,11 +17,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("drawer")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Drawer</h1>
         <p className="text-muted-foreground text-lg">A drawer component for React.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

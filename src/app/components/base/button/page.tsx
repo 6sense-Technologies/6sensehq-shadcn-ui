@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { ButtonDemoExample } from "@/components/examples/base/button-demo"
 import { ButtonSizeExample } from "@/components/examples/base/button-size"
 import { ButtonDefaultExample } from "@/components/examples/base/button-default"
@@ -30,11 +33,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("button")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Button</h1>
         <p className="text-muted-foreground text-lg">Displays a button or a component that looks like a button.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

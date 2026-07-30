@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { DialogDemoExample } from "@/components/examples/base/dialog-demo"
 import { DialogCloseButtonExample } from "@/components/examples/base/dialog-close-button"
 import { DialogNoCloseButtonExample } from "@/components/examples/base/dialog-no-close-button"
@@ -13,11 +16,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("dialog")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Dialog</h1>
         <p className="text-muted-foreground text-lg">A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

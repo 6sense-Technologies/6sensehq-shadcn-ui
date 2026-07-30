@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { BreadcrumbDemoExample } from "@/components/examples/base/breadcrumb-demo"
 import { BreadcrumbBasicExample } from "@/components/examples/base/breadcrumb-basic"
 import { BreadcrumbSeparatorExample } from "@/components/examples/base/breadcrumb-separator"
@@ -20,6 +23,8 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("breadcrumb")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
@@ -27,6 +32,7 @@ export default function Page() {
         <p className="text-muted-foreground text-lg">
           Displays the path to the current resource using a hierarchy of links.
         </p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
 
       <section className="flex flex-col gap-4">

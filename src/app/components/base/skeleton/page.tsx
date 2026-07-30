@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { SkeletonDemoExample } from "@/components/examples/base/skeleton-demo"
 import { SkeletonAvatarExample } from "@/components/examples/base/skeleton-avatar"
 import { SkeletonCardExample } from "@/components/examples/base/skeleton-card"
@@ -14,11 +17,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("skeleton")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Skeleton</h1>
         <p className="text-muted-foreground text-lg">Use to show a placeholder while content is loading.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

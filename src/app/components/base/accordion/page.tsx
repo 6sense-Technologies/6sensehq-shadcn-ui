@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { AccordionDemoExample } from "@/components/examples/base/accordion-demo"
 import { AccordionBasicExample } from "@/components/examples/base/accordion-basic"
 import { AccordionMultipleExample } from "@/components/examples/base/accordion-multiple"
@@ -25,6 +28,8 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("accordion")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
@@ -33,6 +38,7 @@ export default function Page() {
           A vertically stacked set of interactive headings that each reveal a
           section of content.
         </p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
 
       <section className="flex flex-col gap-4">

@@ -1,11 +1,16 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 export const metadata: Metadata = {
   title: "Sidebar",
   description: "A composable, themeable and customizable sidebar component.",
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("sidebar")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
@@ -14,6 +19,7 @@ export default function Page() {
           A composable, themeable and customizable sidebar component. All 16
           official sidebar block variations, plus app-shell sidebars.
         </p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
 
       <section className="flex flex-col gap-4">

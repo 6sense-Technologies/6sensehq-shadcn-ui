@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { SeparatorDemoExample } from "@/components/examples/base/separator-demo"
 import { SeparatorVerticalExample } from "@/components/examples/base/separator-vertical"
 import { SeparatorMenuExample } from "@/components/examples/base/separator-menu"
@@ -12,11 +15,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("separator")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Separator</h1>
         <p className="text-muted-foreground text-lg">Visually or semantically separates content.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

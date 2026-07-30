@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { KbdDemoExample } from "@/components/examples/base/kbd-demo"
 import { KbdGroupExample } from "@/components/examples/base/kbd-group"
 import { KbdButtonExample } from "@/components/examples/base/kbd-button"
@@ -13,11 +16,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("kbd")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Kbd</h1>
         <p className="text-muted-foreground text-lg">Used to display textual user input from keyboard.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

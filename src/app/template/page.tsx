@@ -1,6 +1,7 @@
 import Link from "next/link"
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
 import { templateNav } from "@/lib/template-nav"
 
 export const metadata: Metadata = {
@@ -22,12 +23,10 @@ export default function TemplateIndexPage() {
           <Link
             key={item.slug}
             href={item.href}
-            className="rounded-xl border px-5 py-6 transition-colors hover:bg-muted"
+            className="flex flex-col gap-2 rounded-xl border px-5 py-6 transition-colors hover:bg-muted"
           >
             <span className="text-base font-medium">{item.title}</span>
-            <p className="text-muted-foreground mt-1 text-sm">
-              View {item.title.toLowerCase()} page variations
-            </p>
+            <DocsWhenToUse>{item.whenToUse}</DocsWhenToUse>
           </Link>
         ))}
       </div>

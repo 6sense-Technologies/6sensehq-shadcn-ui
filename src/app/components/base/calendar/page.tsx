@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { CalendarDemoExample } from "@/components/examples/base/calendar-demo"
 import { CalendarHijriExample } from "@/components/examples/base/calendar-hijri"
 import { CalendarBasicExample } from "@/components/examples/base/calendar-basic"
@@ -24,11 +27,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("calendar")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Calendar</h1>
         <p className="text-muted-foreground text-lg">A calendar component that allows users to select a date or a range of dates.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

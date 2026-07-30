@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { MarkerDemoExample } from "@/components/examples/base/marker-demo"
 import { MarkerVariantsExample } from "@/components/examples/base/marker-variants"
 import { MarkerStatusExample } from "@/components/examples/base/marker-status"
@@ -15,11 +18,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("marker")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Marker</h1>
         <p className="text-muted-foreground text-lg">Displays an inline status, system note, bordered row, or labeled separator in a conversation.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

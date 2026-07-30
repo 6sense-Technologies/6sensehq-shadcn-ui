@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { InputOtpDemoExample } from "@/components/examples/base/input-otp-demo"
 import { InputOtpPatternExample } from "@/components/examples/base/input-otp-pattern"
 import { InputOtpSeparatorExample } from "@/components/examples/base/input-otp-separator"
@@ -17,11 +20,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("input-otp")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Input OTP</h1>
         <p className="text-muted-foreground text-lg">Accessible one-time password component with copy-paste functionality.</p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
       <section className="flex flex-col gap-4">
         

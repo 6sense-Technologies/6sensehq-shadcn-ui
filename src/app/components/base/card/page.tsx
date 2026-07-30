@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 
+import { DocsWhenToUse } from "@/components/docs-when-to-use"
+import { getComponentNavItem } from "@/lib/component-nav"
+
 import { CardDemoExample } from "@/components/examples/base/card-demo"
 import { CardSmallExample } from "@/components/examples/base/card-small"
 import { CardSpacingExample } from "@/components/examples/base/card-spacing"
@@ -27,6 +30,8 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const whenToUse = getComponentNavItem("card")?.whenToUse
+
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 p-6 md:p-10">
       <div className="flex flex-col gap-2">
@@ -34,6 +39,7 @@ export default function Page() {
         <p className="text-muted-foreground text-lg">
           Displays a card with header, content, and footer.
         </p>
+        {whenToUse ? <DocsWhenToUse>{whenToUse}</DocsWhenToUse> : null}
       </div>
 
       <section className="flex flex-col gap-4">
