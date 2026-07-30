@@ -38,6 +38,11 @@ export const templateNav: TemplateNavItem[] = [
     href: "/template/create-pages",
     slug: "create-pages",
   },
+  {
+    title: "AI Chats",
+    href: "/template/ai-chats",
+    slug: "ai-chats",
+  },
 ]
 
 /** Login page variations — each opens as a full page */
@@ -297,5 +302,16 @@ export const createPageVariations: TemplateVariation[] = [
       "Request form with drag-and-drop upload and attachment list",
     href: "/view/create/attachments",
     slug: "attachments",
+  },
+]
+
+/** AI chat page variations — each opens as a full page */
+export const aiChatVariations: TemplateVariation[] = [
+  {
+    title: "AI Chat Workspace",
+    description:
+      "Academy shell with nested chat history sidebar, empty greeting, and conversation view",
+    href: "/view/ai-chats/workspace",
+    slug: "workspace",
   },
 ]
