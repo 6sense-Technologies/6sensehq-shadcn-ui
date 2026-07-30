@@ -33,6 +33,11 @@ export const templateNav: TemplateNavItem[] = [
     href: "/template/list-pages",
     slug: "list-pages",
   },
+  {
+    title: "Create Pages",
+    href: "/template/create-pages",
+    slug: "create-pages",
+  },
 ]
 
 /** Login page variations — each opens as a full page */
@@ -232,5 +237,65 @@ export const listPageVariations: TemplateVariation[] = [
       "Clean users table with summary cards, date range, and circular actions",
     href: "/view/list/users-02",
     slug: "users-02",
+  },
+  {
+    title: "Users Segmented",
+    description:
+      "Users list with pill status tabs, rounded search, and export header",
+    href: "/view/list/users-03",
+    slug: "users-03",
+  },
+]
+
+/** Create page variations — each opens as a full page */
+export const createPageVariations: TemplateVariation[] = [
+  {
+    title: "Simple Create",
+    description:
+      "Create project form with settings sidebar and live summary card",
+    href: "/view/create/simple",
+    slug: "simple",
+  },
+  {
+    title: "Simple Create 02",
+    description:
+      "Create user with sectioned cards and sticky live profile preview",
+    href: "/view/create/simple-02",
+    slug: "simple-02",
+  },
+  {
+    title: "Create with Address",
+    description:
+      "Location form with line 1/2, city, state, ZIP, country, and preview",
+    href: "/view/create/address",
+    slug: "address",
+  },
+  {
+    title: "Multi-step Create",
+    description:
+      "Workspace wizard with progress bar, nav stepper, and plan cards",
+    href: "/view/create/multi-step",
+    slug: "multi-step",
+  },
+  {
+    title: "Multi-step Create 02",
+    description:
+      "Campaign wizard with vertical steps and segmented progress",
+    href: "/view/create/multi-step-02",
+    slug: "multi-step-02",
+  },
+  {
+    title: "Create with Invite",
+    description:
+      "Team create flow with an invite-users step and confirmation",
+    href: "/view/create/invite",
+    slug: "invite",
+  },
+  {
+    title: "Create with Attachments",
+    description:
+      "Request form with drag-and-drop upload and attachment list",
+    href: "/view/create/attachments",
+    slug: "attachments",
   },
 ]
